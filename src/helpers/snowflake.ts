@@ -8,6 +8,5 @@ export const isValidSnowflake = (snowflake: bigint): boolean => {
 
 export const getDateFromSnowflake = (snowflake: bigint): Date => {
     const snowflakeTime = (snowflake >> 22n) + DISCORD_EPOCH_START;
-    const snowflakeTimeSeconds = Number(snowflakeTime / 1000n);
-    return new Date(snowflakeTimeSeconds);
+    return new Date(Number(snowflakeTime));
 }
