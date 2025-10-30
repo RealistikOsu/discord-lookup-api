@@ -4,6 +4,13 @@ import { getDateFromSnowflake, isValidSnowflake } from "discord-lookup-api/helpe
 import { redis } from "bun";
 import { USER_CACHE_TIME, USER_FLAGS } from "./constants";
 
+if (!process.env.APP_PORT) {
+  throw new Error("APP_PORT is not defined");
+}
+if (!process.env.BOT_TOKEN) {
+  throw new Error("BOT_TOKEN is not defined");
+}
+
 const server = Bun.serve({
   port: Number(process.env.APP_PORT!),
   routes: {

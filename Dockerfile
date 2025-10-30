@@ -9,4 +9,4 @@ RUN bun install
 
 COPY . .
 
-RUN bun src/index.ts
+CMD bun src/index.ts
