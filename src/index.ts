@@ -3,6 +3,7 @@ import { getDateFromSnowflake, isValidSnowflake } from "discord-lookup-api/helpe
 // automatically connects via process.env.REDIS_URL
 import { redis } from "bun";
 import { USER_CACHE_TIME, USER_FLAGS } from "./constants";
+import { isBigIntLiteral } from "typescript";
 
 if (!process.env.APP_PORT) {
   throw new Error("APP_PORT is not defined");
@@ -16,9 +17,9 @@ const server = Bun.serve({
   port: Number(process.env.APP_PORT!),
   routes: {
     "/api/v1/user/:userId": async (request) => {
-      const userId = Number(request.params.userId);
+      const userId = BigInt(request.params.userId);
 
-      if (!isValidSnowflake(userId)) {
+      if (!isNaN(Number(userId)) || !isValidSnowflake(userId)) {
         return Response.json(
           {
             status: 400,
