@@ -3,9 +3,6 @@
   "module": "src/index.ts",
   "type": "module",
   "private": true,
-  "scripts": {
-    "build": "tsdown"
-  },
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -21,8 +18,5 @@
   },
   "peerDependencies": {
     "typescript": "^5"
-  },
-  "dependencies": {
-    "tsdown": "^0.15.12"
   }
 }
