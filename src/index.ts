@@ -12,6 +12,7 @@ if (!process.env.BOT_TOKEN) {
 }
 
 const server = Bun.serve({
+  hostname: process.env.APP_HOST,
   port: Number(process.env.APP_PORT!),
   routes: {
     "/api/v1/user/:userId": async (request) => {

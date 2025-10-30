@@ -22,4 +22,5 @@ services:
     environment:
       - REDIS_URL=redis://redis:${REDIS_PORT}
       - BOT_TOKEN=${DISCORD_BOT_TOKEN}
+      - APP_HOST=0.0.0.0
       - APP_PORT=${API_PORT}
