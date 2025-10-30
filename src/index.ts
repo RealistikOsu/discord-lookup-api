@@ -70,7 +70,7 @@ const server = Bun.serve({
 
       let userInfo = {
         id: data.id,
-        created_at: getDateFromSnowflake(data.id),
+        created_at: getDateFromSnowflake(BigInt(data.id)),
         username: data.username,
         avatar: {
           id: data.avatar,
