@@ -16,6 +16,7 @@ const server = Bun.serve({
   port: Number(process.env.APP_PORT!),
   routes: {
     "/api/v1/user/:userId": async (request) => {
+      const start = Bun.nanoseconds();
       const userId = BigInt(request.params.userId);
 
       if (isNaN(Number(userId)) || !isValidSnowflake(userId)) {
@@ -30,6 +31,7 @@ const server = Bun.serve({
 
       const cachedData = await redis.get(`user:${userId}`);
       if (cachedData) {
+        console.log(`Fetched user ID ${userId} from cache in ${(Bun.nanoseconds() - start) / 1_000_000}ms!`);
         return Response.json(JSON.parse(cachedData), { status: 200 });
       }
 
@@ -92,6 +94,7 @@ const server = Bun.serve({
       };
 
       await redis.set(`user:${userId}`, JSON.stringify(userInfo), "EX", USER_CACHE_TIME);
+      console.log(`Fetched user ID ${userId} from Discord API in ${(Bun.nanoseconds() - start) / 1_000_000}ms!`);
       return Response.json(userInfo, { status: 200 });
     },
   },
